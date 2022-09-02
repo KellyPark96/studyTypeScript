@@ -41,10 +41,38 @@ let union: string | null = null;
 union = "Mark";
 
 
-// Array : Object형
+// Array
+let list: (number | string)[] = [1, 2, 3, "4"]; // => union type도 가능
+let list2: Array<number> = [1, 2, 3];
 
-// + 
+// Tuple
+let x: [string, number];
+x = ["hello", 39];
+const person: [string, number] = ["Mark", 39];
+const [first, second] = person;
 
-// Any, Void, Never, Unknown
+// Any
+// 어떤 타입이어도 상관없는 타입.
+// 이걸 최대한 쓰지 않는게 핵심
+// 왜냐하면 compile time에 type check가 정상적으로 이루어지지 않기 때문.
+// 그래서 컴파일 옵션 중에는 any를 써야하는데 쓰지않으면 오류를 뱉도록 하는 옵션도 있음 => noImplictAny.
+function returnAny(message: any): any {
+    console.log(message);
+}
+const any1 = returnAny("리턴은 아무거나");
+any1.toString();
+let looselyTyped: any = {};
+
+const d = looselyTyped.a.b.c.d;
+
+function leakingAny(obj: any) {
+    const a: number = obj.num;
+    const b = a + 1;
+    return b;
+}
+
+const c = leakingAny({ num: 0 });
+c.indexOf("0");
+
+// Void, Never, Unknown
 // Enum
-// Tuple : Object 형
